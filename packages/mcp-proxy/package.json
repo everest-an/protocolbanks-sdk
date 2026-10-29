@@ -1,0 +1,43 @@
+{
+  "name": "@everestan/protocolbanks-mcp",
+  "version": "0.1.0",
+  "description": "stdio MCP client for the hosted Protocol Banks MCP server",
+  "type": "module",
+  "bin": {
+    "protocolbanks-mcp": "dist/cli.js"
+  },
+  "main": "dist/proxy.js",
+  "types": "dist/proxy.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "trading",
+    "hyperliquid",
+    "payments",
+    "protocol-banks"
+  ],
+  "author": "Protocol Banks",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/everest-an/protocolbanks-sdk.git",
+    "directory": "packages/mcp-proxy"
+  },
+  "homepage": "https://protocolbanks.com/docs",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.0.0",
+    "vitest": "^5.0.0"
+  }
+}
