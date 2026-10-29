@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@elizaos/core": "^1.7.0",
-    "@everestan/protocolbanks-sdk": "^0.2.0"
+    "@everestan/protocolbanks-sdk": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^22",
