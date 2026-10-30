@@ -109,12 +109,26 @@ export interface AgentOrderResponse {
   error?: string
 }
 
+export interface AgentSignedAuthorization {
+  from: string
+  to: string
+  value: string
+  validAfter: number
+  validBefore: number
+  nonce: string
+  v: number
+  r: string
+  s: string
+}
+
 export interface AgentPayRequest {
   to: string
   amountUsd: number
   token?: string
   chain?: string
   memo?: string
+  /** Add this to execute; without it the call prepares an intent to sign. */
+  authorization?: AgentSignedAuthorization
 }
 
 export interface AgentPayIntent {
@@ -125,13 +139,36 @@ export interface AgentPayIntent {
   amountUsd: number
   memo?: string
   remainingTodayUsd: number
+  chainId?: number | null
+  executable?: boolean
+  authorization?: {
+    from: string
+    to: string
+    value: string
+    validAfter: number
+    validBefore: number
+    nonce: string
+  } | null
+  typedData?: Record<string, unknown> | null
+}
+
+export interface AgentPayment {
+  txHash: string
+  status: "submitted"
+  from: string
+  to: string
+  amountUsd: number
+  token: string
+  chain: string
 }
 
 export interface AgentPayResponse {
   ok: boolean
   status?: number
   intent?: AgentPayIntent
+  payment?: AgentPayment
   note?: string
+  remainingTodayUsd?: number
   error?: string
 }
 
