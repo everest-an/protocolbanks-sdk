@@ -70,6 +70,7 @@ export interface AgentStateResponse {
   equity?: { t: string; v: number }[]
   positions?: AgentPosition[]
   activity?: AgentActivity[]
+  payments?: AgentPayment[]
   pendingTrade?: {
     symbol: string
     side: "long" | "short"
@@ -153,13 +154,19 @@ export interface AgentPayIntent {
 }
 
 export interface AgentPayment {
-  txHash: string
-  status: "submitted"
+  /** Durable id; use it to correlate payment webhooks. */
+  id: string
+  txHash: string | null
+  status: "pending" | "submitted" | "confirmed" | "failed"
   from: string
   to: string
   amountUsd: number
   token: string
   chain: string
+  memo?: string | null
+  error?: string | null
+  createdAt?: string
+  confirmedAt?: string | null
 }
 
 export interface AgentPayResponse {
@@ -284,7 +291,7 @@ export class Agent {
     return this.call<AgentOrderResponse>("POST", "/orders", request)
   }
 
-  /** Validate a payment and return the intent the agent signs itself. */
+  /** Prepare an EIP-3009 payment intent, or execute it with a signed authorization. */
   async pay(request: AgentPayRequest): Promise<AgentPayResponse> {
     return this.call<AgentPayResponse>("POST", "/pay", request)
   }
